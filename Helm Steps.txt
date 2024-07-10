@@ -4,7 +4,9 @@ Steps to Install Prometheus:
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
 helm install prometheus prometheus-community/prometheus
+kubectl get pods
 kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-ext
+kubectl get svc
 minikube service prometheus-server-ext
 
 
@@ -14,7 +16,9 @@ Steps to install Grafana:
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 helm install grafana stable/grafana
+kubectl get pods
 kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-ext
+kubectl get svc
 minikube service grafana-ext
 
 To get user name and password in Grafana:
@@ -22,11 +26,22 @@ To get user name and password in Grafana:
 kubectl get secret --namespace default grafana -o yaml
 echo "RkpwY21aTFNXRDVJN3Z4RWFFUjlibkV1SDBDbnFBendadmc0bmROZQ==" | openssl base64 -d ; echo
 
+or
+for user name:
+$base64String = "YWRtaW4="
+$decodedBytes = [System.Convert]::FromBase64String($base64String)
+$decodedString = [System.Text.Encoding]::UTF8.GetString($decodedBytes)
+echo $decodedString
+
+for password:
+"VXpaRFJxdlliRkxacmMxbnc2cWtTb0FuazdabURyWnd0bVBuSHhvUw=="
+$decodedBytes = [System.Convert]::FromBase64String($base64String)
+$decodedString = [System.Text.Encoding]::UTF8.GetString($decodedBytes)
+echo $decodedString
+
+
 or 
 
 kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 ----------------------------------------------------------
 
-Dashboards: https://grafana.com/grafana/dashboards/6417
-Grafana playlist: https://www.youtube.com/playlist?list=PLVx1qovxj-akOGKSoQ5sGc5ZRfH8Tpnow
-Prometheus Playlist: https://www.youtube.com/playlist?list=PLVx1qovxj-anCTn6um3BDsoHnIr0O2tz3
