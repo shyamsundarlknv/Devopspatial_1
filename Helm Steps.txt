@@ -45,3 +45,4 @@ or
 kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 ----------------------------------------------------------
 
+grafana dashboard id for minikube is 6417
