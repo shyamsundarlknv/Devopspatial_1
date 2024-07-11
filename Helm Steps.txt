@@ -10,6 +10,19 @@ kubectl get svc
 minikube service prometheus-server-ext
 
 
+To check the installed apps:
+helm list -A
+
+Port Forward Prometheus Alertmanager:
+kubectl get pods -n default
+kubectl port-forward -n default prometheus-alertmanager-0 9093:9093
+http://localhost:9093
+
+
+
+
+
+
 Steps to install Grafana:
 --------------------------
 
