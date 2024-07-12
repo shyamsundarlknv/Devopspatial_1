@@ -1,2 +1,11 @@
 minikube status              ( Kubernetes cluster status)
- 
+----------------------------------------------------------------------------
+kubeconfig not properly pointing to the Minikube cluster:
+minikube update-context      (Update Minikube Context)
+kubectl config get-contexts   (Verify Context)
+kubectl config use-context minikube    (Switch Context (if needed): If the Minikube context is not the current context, switch to it using)
+minikube status   (Verify Status)
+
+
+
+
