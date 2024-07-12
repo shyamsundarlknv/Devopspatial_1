@@ -31,11 +31,21 @@ kubectl get svc
 minikube service grafana-ext
 
 To get user name and password in Grafana:
+----------------------------------------
 
 kubectl get secret --namespace default grafana -o yaml
+first:
 echo "RkpwY21aTFNXRDVJN3Z4RWFFUjlibkV1SDBDbnFBendadmc0bmROZQ==" | openssl base64 -d ; echo
+second:(this is for password)
+$password = "ZFJVNlE0OEN3Vk5vdlJqMkJweW1rMTFrbjk3NXNSYWZGM1Q2UVRTYw=="   (inside the "" need to mention the base64-encoded admin password)
+[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($password))
+third:(this is for username)
+$user = "YWRtaW4="  (inside the "" need to mention the base64-encoded admin password)
+[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($user))
 
-or
+
+
+(or)
 for user name:
 $base64String = "YWRtaW4="
 $decodedBytes = [System.Convert]::FromBase64String($base64String)
@@ -49,7 +59,7 @@ $decodedString = [System.Text.Encoding]::UTF8.GetString($decodedBytes)
 echo $decodedString
 
 
-or 
+(or)
 
 kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 ----------------------------------------------------------
