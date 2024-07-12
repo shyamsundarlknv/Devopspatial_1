@@ -29,10 +29,9 @@ kubectl get pods
 kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-ext
 kubectl get svc
 minikube service grafana-ext
-
+  
 To get user name and password in Grafana:
 ----------------------------------------
-
 kubectl get secret --namespace default grafana -o yaml
 first:
 echo "RkpwY21aTFNXRDVJN3Z4RWFFUjlibkV1SDBDbnFBendadmc0bmROZQ==" | openssl base64 -d ; echo
@@ -42,8 +41,6 @@ $password = "ZFJVNlE0OEN3Vk5vdlJqMkJweW1rMTFrbjk3NXNSYWZGM1Q2UVRTYw=="   (inside
 third:(this is for username)
 $user = "YWRtaW4="  (inside the "" need to mention the base64-encoded admin password)
 [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($user))
-
-
 
 (or)
 for user name:
@@ -63,5 +60,21 @@ echo $decodedString
 
 kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 ----------------------------------------------------------
+
+installing loki:
+----------------
+helm install loki grafana/loki-stack --namespace default --set grafana.enabled=true,prometheus.enabled=true,prometheus.alertmanager.persistentVolume.enabled=false
+
+
+kubectl get services -n default     (to check how many services are running)
+kubectl port-forward service/loki 3100:80 -n default
+
+
+
+
+
+
+
+
 
 grafana dashboard id for minikube is 6417
