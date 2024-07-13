@@ -1,3 +1,9 @@
+To create a namespace:
+----------------------
+kubectl get namespaces   (To list all the namespaces in your Kubernetes cluster)
+kubectl create namespace <namespace-name>  (Create a New Namespacea and Replace <namespace-name> with your desired namespace name)
+
+
 Prometheus:
 ----------
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -13,4 +19,8 @@ Loki:
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 helm install loki grafana/loki-stack --namespace <namespace-name>
+
+Verify Installation:
+-------------------
+kubectl get pods --namespace <namespace-name>
 
