@@ -10,6 +10,13 @@ minikube status   (Verify Status)
 helm list -A (To check the installed apps)
 --------------------------------------------------------------
 
+To create a namespace:
+----------------------
+kubectl get namespaces   (To list all the namespaces in your Kubernetes cluster)
+kubectl create namespace <namespace-name>  (Create a New Namespacea and Replace <namespace-name> with your desired namespace name)
+
+
+
 
 
 
