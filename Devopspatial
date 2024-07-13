@@ -1,0 +1,143 @@
+## Add the Prometheus Helm repository
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+
+## Install Prometheus:
+---------------------
+helm install prometheus prometheus-community/prometheus
+
+## Verify Prometheus Pods:
+kubectl get pods
+
+
+## Expose Prometheus Server:
+kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-ext
+
+## To Get Prometheus Service Details:
+kubectl get svc
+
+## Access Prometheus via Minikube:
+minikube service prometheus-server-ext
+
+## Port Forward Prometheus Alertmanager
+## Get Prometheus Alertmanager Pod
+kubectl get pods -n default
+
+## Port Forward Alertmanager:
+kubectl port-forward -n default prometheus-alertmanager-0 9093:9093
+
+## Access Alertmanager
+http://localhost:9093
+
+
+## Install Grafana:
+-------------------
+## To Add the Grafana Helm repository
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+
+## Install Grafana:
+helm install grafana grafana/grafana
+
+## Verify Grafana Pods
+kubectl get pods
+
+## Expose Grafana Service
+kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-ext
+
+
+## Get Grafana Service Details
+kubectl get svc
+
+
+## Access Grafana via Minikube
+minikube service grafana-ext
+
+## Get Grafana Credentials
+kubectl get secret --namespace default grafana -o yaml
+
+
+## Decode Admin Password
+kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+
+
+## Alternative Method to Decode
+To get Username:
+
+$base64String = "YWRtaW4="
+$decodedBytes = [System.Convert]::FromBase64String($base64String)
+$decodedString = [System.Text.Encoding]::UTF8.GetString($decodedBytes)
+echo $decodedString
+
+
+To get password:
+
+$base64String = "Your_Base64_Encoded_Password"
+$decodedBytes = [System.Convert]::FromBase64String($base64String)
+$decodedString = [System.Text.Encoding]::UTF8.GetString($decodedBytes)
+echo $decodedString
+
+
+## Install Loki:
+-----------------
+helm install loki grafana/loki-stack --namespace default --set grafana.enabled=true,prometheus.enabled=true,prometheus.alertmanager.persistentVolume.enabled=false
+
+## Verify Services
+kubectl get services -n default
+
+## Port Forward Loki Service
+kubectl port-forward service/loki 3100:3100 -n default
+
+
+## Install Promtail
+helm install promtail grafana/promtail --namespace default
+
+## Verify Promtail Installation
+kubectl get pods --namespace default
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
