@@ -1,0 +1,18 @@
+
+Step 1: Retrieve Default Values
+helm show values grafana/promtail > promtail-values.yaml            (Retrieve the default values for the Promtail Helm chart and save them to a file)
+
+
+Step 2: Edit the Values File
+notepad promtail-values.yaml
+
+
+Step 4: Install or Upgrade Promtail with Custom Values
+Use Helm to install or upgrade Promtail with the customized values. Run the following command in PowerShell:
+
+helm install promtail grafana/promtail --namespace default -f promtail-values.yaml   (To Install Promtail)
+
+helm upgrade promtail grafana/promtail --namespace default -f promtail-values.yaml       (To Upgrade Promtail)
+
+kubectl get pods --namespace default
+kubectl get services --namespace default
