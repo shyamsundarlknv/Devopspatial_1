@@ -63,7 +63,8 @@ helm install loki grafana/loki-stack --namespace default --set grafana.enabled=t
 
 
 kubectl get services -n default     (to check how many services are running)
-kubectl port-forward service/loki 3100:80 -n default
+kubectl port-forward service/loki 3100:80 -n default   (or)  kubectl port-forward service/loki 3100:3100 -n default  (check the service port number before input)
+
 
 
 
